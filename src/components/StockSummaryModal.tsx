@@ -33,7 +33,23 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                 nav: item?.nav_ttm || "",
                 ocf: item?.ocf_ttm || "",
             },
-            ...response.data,
+            ...response.data.map((item: StockSummary) => ({
+                year: item.year,
+                max_close: Number(item.max_close),
+                min_close: Number(item.min_close),
+                pe_high: Number(item.pe_high),
+                pe_low: Number(item.pe_low),
+                pb_high: Number(item.pb_high),
+                pb_low: Number(item.pb_low),
+                ps_high: Number(item.ps_high),
+                ps_low: Number(item.ps_low),
+                pocf_high: Number(item.pocf_high),
+                pocf_low: Number(item.pocf_low),
+                eps: Number(item.eps),
+                sps: Number(item.sps),
+                nav: Number(item.nav),
+                ocf: Number(item.ocf),
+            })),
         ]);
     }, [item?.symbol]);
 
