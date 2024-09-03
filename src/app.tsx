@@ -87,8 +87,8 @@ export const App = React.memo(() => {
                         {field: "pe_forecast_discount", headerName: "P/E 股價折現", cellStyle: discountCellStyle},
 
                         {field: "sps_ttm", headerName: "每股營收"},
-                        {field: "ps_low", headerName: "殘值 P/S"},
                         {field: "ps_high", headerName: "極值 P/S"},
+                        {field: "ps_low", headerName: "殘值 P/S"},
                         {field: "ps_high_forecast", headerName: "極值 P/S 股價"},
                         {field: "ps_low_forecast", headerName: "殘值 P/S 股價"},
                         {field: "ps_forecast_discount", headerName: "P/S 股價折現", cellStyle: discountCellStyle},
