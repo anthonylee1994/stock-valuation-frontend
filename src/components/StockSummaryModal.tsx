@@ -68,21 +68,21 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                         loading={stockSummaries.length === 0}
                         rowData={stockSummaries}
                         columnDefs={[
-                            {field: "year", headerName: "年度", pinned: "left"},
-                            {field: "eps", headerName: "每股盈利"},
-                            {field: "sps", headerName: "每股營收"},
-                            {field: "nav", headerName: "每股淨值"},
-                            {field: "ocf", headerName: "每股營運現金流"},
-                            {field: "max_close", headerName: "最高收盤價"},
-                            {field: "min_close", headerName: "最低收盤價"},
-                            {field: "pe_high", headerName: "極值 P/E"},
-                            {field: "pe_low", headerName: "殘值 P/E"},
-                            {field: "ps_high", headerName: "極值 P/S"},
-                            {field: "ps_low", headerName: "殘值 P/S"},
-                            {field: "pb_high", headerName: "極值 P/B"},
-                            {field: "pb_low", headerName: "殘值 P/B"},
-                            {field: "pocf_high", headerName: "極值 P/OCF"},
-                            {field: "pocf_low", headerName: "殘值 P/OCF"},
+                            {field: "year", headerName: "年度", pinned: "left", type: "rightAligned"},
+                            {field: "eps", headerName: "每股盈利", type: "rightAligned"},
+                            {field: "sps", headerName: "每股營收", type: "rightAligned"},
+                            {field: "nav", headerName: "每股淨值", type: "rightAligned"},
+                            {field: "ocf", headerName: "每股營運現金流", type: "rightAligned"},
+                            {field: "max_close", headerName: "最高收盤價", type: "rightAligned"},
+                            {field: "min_close", headerName: "最低收盤價", type: "rightAligned"},
+                            {field: "pe_high", headerName: "極值 P/E", type: "rightAligned"},
+                            {field: "pe_low", headerName: "殘值 P/E", type: "rightAligned"},
+                            {field: "ps_high", headerName: "極值 P/S", type: "rightAligned"},
+                            {field: "ps_low", headerName: "殘值 P/S", type: "rightAligned"},
+                            {field: "pb_high", headerName: "極值 P/B", type: "rightAligned"},
+                            {field: "pb_low", headerName: "殘值 P/B", type: "rightAligned"},
+                            {field: "pocf_high", headerName: "極值 P/OCF", type: "rightAligned"},
+                            {field: "pocf_low", headerName: "殘值 P/OCF", type: "rightAligned"},
                         ]}
                     />
                 </div>
