@@ -1,0 +1,33 @@
+export interface StockForecast {
+    id: number;
+    symbol: string;
+    price: string;
+    volume: string;
+    market_cap: string;
+    eps_ttm: string;
+    sps_ttm: string;
+    nav_ttm: string;
+    ocf_ttm: string;
+    pb_forecast_discount: string;
+    pb_high: string;
+    pb_high_forecast: string;
+    pb_low: string;
+    pb_low_forecast: string;
+    pe_forecast_discount: string;
+    pe_high: string;
+    pe_high_forecast: string;
+    pe_low: string;
+    pe_low_forecast: string;
+    pocf_forecast_discount: string;
+    pocf_high: string;
+    pocf_high_forecast: string;
+    pocf_low: string;
+    pocf_low_forecast: string;
+    ps_forecast_discount: string;
+    ps_high: string;
+    ps_high_forecast: string;
+    ps_low: string;
+    ps_low_forecast: string;
+    updated_at: string;
+    created_at: string;
+}
