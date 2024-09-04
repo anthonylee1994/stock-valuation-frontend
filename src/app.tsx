@@ -60,7 +60,9 @@ export const App = React.memo(() => {
 
     const discountCellStyle = params => {
         const value = Number(params.value);
-        if (value <= 0.8 && value >= 0) {
+        if (value < 0) {
+            return {backgroundColor: "#ccc"};
+        } else if (value <= 1 && value > 0) {
             return {backgroundColor: "#a6e194"};
         } else if (value > 1 && value <= 1.5) {
             return {backgroundColor: "#f3c08b"};
