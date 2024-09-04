@@ -1,9 +1,10 @@
-import {Dialog, DialogContent, DialogTitle} from "@mui/material";
+import {Dialog, DialogContent, DialogTitle, IconButton, useMediaQuery} from "@mui/material";
 import React from "react";
 import {apiClient} from "../utils/apiClient";
 import {StockSummary} from "../types/StockSummary";
 import {AgGridReact} from "ag-grid-react";
 import {StockForecast} from "../types/StockForecast";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface Props {
     item: StockForecast | null;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
+    const isMobile = useMediaQuery("(max-width: 600px)");
     const [stockSummaries, setStockSummaries] = React.useState<StockSummary[]>([]);
 
     const fetchData = React.useCallback(async () => {
@@ -70,8 +72,13 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
     }, [fetchData, item?.symbol]);
 
     return (
-        <Dialog fullWidth maxWidth="xl" open={Boolean(item)} onClose={onClose}>
-            <DialogTitle>{item?.symbol}</DialogTitle>
+        <Dialog fullWidth fullScreen={isMobile} maxWidth="xl" open={Boolean(item)} onClose={onClose}>
+            <DialogTitle sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                {item?.symbol}{" "}
+                <IconButton edge="start" color="inherit" onClick={onClose} aria-label="close">
+                    <CloseIcon />
+                </IconButton>
+            </DialogTitle>
             <DialogContent>
                 <div className="ag-theme-quartz" style={{width: "100%", height: "400px"}}>
                     <AgGridReact
