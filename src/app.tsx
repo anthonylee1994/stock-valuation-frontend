@@ -171,7 +171,7 @@ export const App = React.memo(() => {
                         {field: "pocf_forecast_discount", headerName: "P/OCF 股價折現", type: "rightAligned", cellStyle: discountCellStyle, width: 140},
 
                         {
-                            headerName: "P/E",
+                            headerName: "P/E 值",
                             type: "centerAligned",
                             children: [
                                 {field: "eps_ttm", headerName: "每股盈利", type: "rightAligned", width: 100},
@@ -192,7 +192,7 @@ export const App = React.memo(() => {
                         },
 
                         {
-                            headerName: "P/S",
+                            headerName: "P/S 值",
                             type: "centerAligned",
                             children: [
                                 {field: "sps_ttm", headerName: "每股營收", type: "rightAligned", width: 100},
@@ -213,7 +213,7 @@ export const App = React.memo(() => {
                         },
 
                         {
-                            headerName: "P/B",
+                            headerName: "P/B 值",
                             type: "centerAligned",
                             children: [
                                 {field: "nav_ttm", headerName: "每股淨值", type: "rightAligned", width: 100},
@@ -234,7 +234,7 @@ export const App = React.memo(() => {
                         },
 
                         {
-                            headerName: "P/OCF",
+                            headerName: "P/OCF 值",
                             type: "centerAligned",
                             children: [
                                 {field: "ocf_ttm", headerName: "每股營運現金流", type: "rightAligned", width: 130},
