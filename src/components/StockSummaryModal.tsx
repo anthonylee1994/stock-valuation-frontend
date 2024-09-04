@@ -79,25 +79,55 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                         rowData={stockSummaries}
                         columnDefs={[
                             {field: "year", headerName: "年度", pinned: "left", type: "rightAligned", width: 100},
-                            {field: "eps", headerName: "每股盈利", type: "rightAligned", width: 100},
-                            {field: "sps", headerName: "每股營收", type: "rightAligned", width: 100},
-                            {field: "nav", headerName: "每股淨值", type: "rightAligned", width: 100},
-                            {field: "ocf", headerName: "每股營運現金流", type: "rightAligned", width: 150},
-                            {field: "max_close", headerName: "最高收盤價", type: "rightAligned", width: 120},
-                            {field: "avg_close", headerName: "平均收盤價", type: "rightAligned", width: 120},
-                            {field: "min_close", headerName: "最低收盤價", type: "rightAligned", width: 120},
-                            {field: "pe_high", headerName: "極值 P/E", type: "rightAligned", width: 100},
-                            {field: "pe_avg", headerName: "均值 P/E", type: "rightAligned", width: 100},
-                            {field: "pe_low", headerName: "殘值 P/E", type: "rightAligned", width: 100},
-                            {field: "ps_high", headerName: "極值 P/S", type: "rightAligned", width: 100},
-                            {field: "ps_avg", headerName: "均值 P/S", type: "rightAligned", width: 100},
-                            {field: "ps_low", headerName: "殘值 P/S", type: "rightAligned", width: 100},
-                            {field: "pb_high", headerName: "極值 P/B", type: "rightAligned", width: 100},
-                            {field: "pb_avg", headerName: "均值 P/B", type: "rightAligned", width: 100},
-                            {field: "pb_low", headerName: "殘值 P/B", type: "rightAligned", width: 100},
-                            {field: "pocf_high", headerName: "極值 P/OCF", type: "rightAligned", width: 120},
-                            {field: "pocf_avg", headerName: "均值 P/OCF", type: "rightAligned", width: 120},
-                            {field: "pocf_low", headerName: "殘值 P/OCF", type: "rightAligned", width: 120},
+                            {
+                                headerName: "關鍵指標",
+                                children: [
+                                    {field: "eps", headerName: "每股盈利", type: "rightAligned", width: 100},
+                                    {field: "sps", headerName: "每股營收", type: "rightAligned", width: 100},
+                                    {field: "nav", headerName: "每股淨值", type: "rightAligned", width: 100},
+                                    {field: "ocf", headerName: "每股營運現金流", type: "rightAligned", width: 150},
+                                ],
+                            },
+                            {
+                                headerName: "收盤價",
+                                children: [
+                                    {field: "max_close", headerName: "最高", type: "rightAligned", width: 120},
+                                    {field: "avg_close", headerName: "平均", type: "rightAligned", width: 120},
+                                    {field: "min_close", headerName: "最低", type: "rightAligned", width: 120},
+                                ],
+                            },
+                            {
+                                headerName: "P/E",
+                                children: [
+                                    {field: "pe_high", headerName: "極值", type: "rightAligned", width: 100},
+                                    {field: "pe_avg", headerName: "均值", type: "rightAligned", width: 100},
+                                    {field: "pe_low", headerName: "殘值", type: "rightAligned", width: 100},
+                                ],
+                            },
+                            {
+                                headerName: "P/S",
+                                children: [
+                                    {field: "ps_high", headerName: "極值", type: "rightAligned", width: 100},
+                                    {field: "ps_avg", headerName: "均值", type: "rightAligned", width: 100},
+                                    {field: "ps_low", headerName: "殘值", type: "rightAligned", width: 100},
+                                ],
+                            },
+                            {
+                                headerName: "P/B",
+                                children: [
+                                    {field: "pb_high", headerName: "極值", type: "rightAligned", width: 100},
+                                    {field: "pb_avg", headerName: "均值", type: "rightAligned", width: 100},
+                                    {field: "pb_low", headerName: "殘值", type: "rightAligned", width: 100},
+                                ],
+                            },
+                            {
+                                headerName: "P/OCF",
+                                children: [
+                                    {field: "pocf_high", headerName: "極值", type: "rightAligned", width: 120},
+                                    {field: "pocf_avg", headerName: "均值", type: "rightAligned", width: 120},
+                                    {field: "pocf_low", headerName: "殘值", type: "rightAligned", width: 120},
+                                ],
+                            },
                         ]}
                     />
                 </div>
