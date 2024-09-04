@@ -79,33 +79,34 @@ export const App = React.memo(() => {
                         {field: "volume", headerName: "成交量", type: "rightAligned"},
                         {field: "market_cap", headerName: "市值", type: "rightAligned"},
 
+                        {field: "pe_forecast_discount", headerName: "P/E 股價折現", type: "rightAligned", cellStyle: discountCellStyle},
+                        {field: "ps_forecast_discount", headerName: "P/S 股價折現", type: "rightAligned", cellStyle: discountCellStyle},
+                        {field: "pb_forecast_discount", headerName: "P/B 股價折現", type: "rightAligned", cellStyle: discountCellStyle},
+                        {field: "pocf_forecast_discount", headerName: "P/OCF 股價折現", type: "rightAligned", cellStyle: discountCellStyle},
+
                         {field: "eps_ttm", headerName: "每股盈利", type: "rightAligned"},
                         {field: "pe_high", headerName: "極值 P/E", type: "rightAligned"},
                         {field: "pe_low", headerName: "殘值 P/E", type: "rightAligned"},
                         {field: "pe_high_forecast", headerName: "極值 P/E 股價", type: "rightAligned"},
                         {field: "pe_low_forecast", headerName: "殘值 P/E 股價", type: "rightAligned"},
-                        {field: "pe_forecast_discount", headerName: "P/E 股價折現", type: "rightAligned", cellStyle: discountCellStyle},
 
                         {field: "sps_ttm", headerName: "每股營收", type: "rightAligned"},
                         {field: "ps_high", headerName: "極值 P/S", type: "rightAligned"},
                         {field: "ps_low", headerName: "殘值 P/S", type: "rightAligned"},
                         {field: "ps_high_forecast", headerName: "極值 P/S 股價", type: "rightAligned"},
                         {field: "ps_low_forecast", headerName: "殘值 P/S 股價", type: "rightAligned"},
-                        {field: "ps_forecast_discount", headerName: "P/S 股價折現", type: "rightAligned", cellStyle: discountCellStyle},
 
                         {field: "nav_ttm", headerName: "每股淨值", type: "rightAligned"},
                         {field: "pb_high", headerName: "極值 P/B", type: "rightAligned"},
                         {field: "pb_low", headerName: "殘值 P/B", type: "rightAligned"},
                         {field: "pb_high_forecast", headerName: "極值 P/B 股價", type: "rightAligned"},
                         {field: "pb_low_forecast", headerName: "殘值 P/B 股價", type: "rightAligned"},
-                        {field: "pb_forecast_discount", headerName: "P/B 股價折現", type: "rightAligned", cellStyle: discountCellStyle},
 
                         {field: "ocf_ttm", headerName: "每股營運現金流", type: "rightAligned"},
                         {field: "pocf_high", headerName: "極值 P/OCF", type: "rightAligned"},
                         {field: "pocf_low", headerName: "殘值 P/OCF", type: "rightAligned"},
                         {field: "pocf_high_forecast", headerName: "極值 P/OCF 股價", type: "rightAligned"},
                         {field: "pocf_low_forecast", headerName: "殘值 P/OCF 股價", type: "rightAligned"},
-                        {field: "pocf_forecast_discount", headerName: "P/OCF 股價折現", type: "rightAligned", cellStyle: discountCellStyle},
                     ]}
                 />
             </div>
