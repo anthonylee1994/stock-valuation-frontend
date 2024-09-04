@@ -3,6 +3,7 @@ export interface StockSummary {
     symbol: string;
     year: string;
     max_close: string;
+    avg_close: string;
     min_close: string;
     eps: string;
     sps: string;

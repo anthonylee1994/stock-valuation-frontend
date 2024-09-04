@@ -19,6 +19,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
             {
                 year: "最新預測",
                 max_close: "-",
+                avg_close: "-",
                 min_close: "-",
                 pe_high: item?.pe_high || "",
                 pe_avg: item?.pe_avg || "",
@@ -40,6 +41,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
             ...response.data.map((item: StockSummary) => ({
                 year: item.year,
                 max_close: Number(item.max_close),
+                avg_close: Number(item.avg_close),
                 min_close: Number(item.min_close),
                 pe_high: Number(item.pe_high),
                 pe_avg: Number(item.pe_avg),
@@ -82,6 +84,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                             {field: "nav", headerName: "每股淨值", type: "rightAligned"},
                             {field: "ocf", headerName: "每股營運現金流", type: "rightAligned"},
                             {field: "max_close", headerName: "最高收盤價", type: "rightAligned"},
+                            {field: "avg_close", headerName: "平均收盤價", type: "rightAligned"},
                             {field: "min_close", headerName: "最低收盤價", type: "rightAligned"},
                             {field: "pe_high", headerName: "極值 P/E", type: "rightAligned"},
                             {field: "pe_avg", headerName: "均值 P/E", type: "rightAligned"},
