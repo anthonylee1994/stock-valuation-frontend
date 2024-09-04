@@ -81,7 +81,7 @@ export const App = React.memo(() => {
             return null;
         }
 
-        const value = Number(params.data.ps_current) / Number(params.data.ps_avg);
+        const value = Number(params.data.pe_current) / Number(params.data.pe_avg);
         if (value < 0) {
             return {backgroundColor: "#ccc"};
         } else if (value <= 1 && value > 0) {
