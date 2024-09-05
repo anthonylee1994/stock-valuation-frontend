@@ -4,6 +4,8 @@ export interface StockForecast {
     price: string;
     volume: string;
     market_cap: string;
+
+    roe_ttm: string;
     eps_ttm: string;
     sps_ttm: string;
     nav_ttm: string;

@@ -19,6 +19,7 @@ export const App = React.memo(() => {
                 price: Number(item.price),
                 volume: Number(item.volume),
                 market_cap: Number(item.market_cap),
+                roe_ttm: Number(item.roe_ttm),
                 eps_ttm: Number(item.eps_ttm),
                 pe_high: Number(item.pe_high),
                 pe_avg: Number(item.pe_avg),
@@ -112,6 +113,7 @@ export const App = React.memo(() => {
                         {field: "price", headerName: "股價", type: "rightAligned", width: 100},
                         {field: "volume", headerName: "成交量", type: "rightAligned", width: 150},
                         {field: "market_cap", headerName: "市值", type: "rightAligned", width: 150},
+                        {field: "roe_ttm", headerName: "ROE", type: "rightAligned", width: 100},
 
                         {field: "pe_forecast_discount", headerName: "P/E 股價折現", type: "rightAligned", cellStyle: discountCellStyle, width: 120},
                         {field: "ps_forecast_discount", headerName: "P/S 股價折現", type: "rightAligned", cellStyle: discountCellStyle, width: 120},

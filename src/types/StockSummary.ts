@@ -5,6 +5,7 @@ export interface StockSummary {
     max_close: string;
     avg_close: string;
     min_close: string;
+    roe: string;
     eps: string;
     sps: string;
     nav: string;

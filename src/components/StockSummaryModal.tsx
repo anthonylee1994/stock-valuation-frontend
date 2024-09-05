@@ -48,6 +48,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                 pocf_high: item?.pocf_high || "",
                 pocf_avg: item?.pocf_avg || "",
                 pocf_low: item?.pocf_low || "",
+                roe: item?.roe_ttm || "",
                 eps: item?.eps_ttm || "",
                 sps: item?.sps_ttm || "",
                 nav: item?.nav_ttm || "",
@@ -74,6 +75,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                 pocf_high: Number(item.pocf_high),
                 pocf_avg: Number(item.pocf_avg),
                 pocf_low: Number(item.pocf_low),
+                roe: Number(item.roe),
                 eps: Number(item.eps),
                 sps: Number(item.sps),
                 nav: Number(item.nav),
@@ -127,6 +129,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                             {
                                 headerName: "關鍵指標",
                                 children: [
+                                    {field: "roe", headerName: "ROE", type: "rightAligned", width: 100},
                                     {field: "eps", headerName: "每股盈利", type: "rightAligned", width: 100},
                                     {field: "sps", headerName: "每股營收", type: "rightAligned", width: 100},
                                     {field: "nav", headerName: "每股淨值", type: "rightAligned", width: 100},
