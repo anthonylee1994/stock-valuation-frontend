@@ -5,6 +5,7 @@ import {AgGridReact} from "ag-grid-react";
 import {StockSummaryModal} from "./components/StockSummaryModal";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
+import {findGrowthRateByPE} from "./utils/growthRateToPE";
 
 export const App = React.memo(() => {
     const [forecasts, setForecasts] = React.useState<StockForecast[]>([]);
@@ -93,6 +94,8 @@ export const App = React.memo(() => {
         }
     };
 
+    const growthRateTooltipValueGetter = params => `代表增長率: ${findGrowthRateByPE(Number(params.value))}%`;
+
     return (
         <React.Fragment>
             <div className="ag-theme-quartz" style={{height: "calc(100vh - 20px)"}}>
@@ -120,10 +123,17 @@ export const App = React.memo(() => {
                             type: "centerAligned",
                             children: [
                                 {field: "eps_ttm", headerName: "每股盈利", type: "rightAligned", width: 100},
-                                {field: "pe_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: ratioCellStyle(data => Number(data.pe_current) / Number(data.pe_avg))},
-                                {field: "pe_high", headerName: "極值", type: "rightAligned", width: 100},
-                                {field: "pe_avg", headerName: "均值", type: "rightAligned", width: 100},
-                                {field: "pe_low", headerName: "殘值", type: "rightAligned", width: 100},
+                                {
+                                    field: "pe_current",
+                                    headerName: "現值",
+                                    type: "rightAligned",
+                                    width: 100,
+                                    cellStyle: ratioCellStyle(data => Number(data.pe_current) / Number(data.pe_avg)),
+                                    tooltipValueGetter: growthRateTooltipValueGetter,
+                                },
+                                {field: "pe_high", headerName: "極值", type: "rightAligned", width: 100, tooltipValueGetter: growthRateTooltipValueGetter},
+                                {field: "pe_avg", headerName: "均值", type: "rightAligned", width: 100, tooltipValueGetter: growthRateTooltipValueGetter},
+                                {field: "pe_low", headerName: "殘值", type: "rightAligned", width: 100, tooltipValueGetter: growthRateTooltipValueGetter},
                             ],
                         },
                         {

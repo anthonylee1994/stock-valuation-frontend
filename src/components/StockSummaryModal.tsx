@@ -7,6 +7,7 @@ import {StockForecast} from "../types/StockForecast";
 import CloseIcon from "@mui/icons-material/Close";
 import {TradingViewWidget} from "./TradingViewWidget";
 import {StockInfo} from "../types/StockInfo";
+import {findGrowthRateByPE} from "../utils/growthRateToPE";
 
 interface Props {
     item: StockForecast | null;
@@ -105,6 +106,8 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
         }
     };
 
+    const growthRateTooltipValueGetter = params => `代表增長率: ${findGrowthRateByPE(Number(params.value))}%`;
+
     return (
         <Dialog fullWidth fullScreen={isMobile} maxWidth="xl" open={Boolean(item)} onClose={onClose}>
             <DialogTitle sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
@@ -147,10 +150,11 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                                         type: "rightAligned",
                                         width: 100,
                                         cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pe_current) / Number(data.pe_avg)),
+                                        tooltipValueGetter: growthRateTooltipValueGetter,
                                     },
-                                    {field: "pe_high", headerName: "極值", type: "rightAligned", width: 100},
-                                    {field: "pe_avg", headerName: "均值", type: "rightAligned", width: 100},
-                                    {field: "pe_low", headerName: "殘值", type: "rightAligned", width: 100},
+                                    {field: "pe_high", headerName: "極值", type: "rightAligned", width: 100, tooltipValueGetter: growthRateTooltipValueGetter},
+                                    {field: "pe_avg", headerName: "均值", type: "rightAligned", width: 100, tooltipValueGetter: growthRateTooltipValueGetter},
+                                    {field: "pe_low", headerName: "殘值", type: "rightAligned", width: 100, tooltipValueGetter: growthRateTooltipValueGetter},
                                 ],
                             },
                             {
