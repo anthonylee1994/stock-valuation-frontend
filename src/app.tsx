@@ -76,12 +76,12 @@ export const App = React.memo(() => {
         return null;
     };
 
-    const peCellStyle = params => {
+    const ratioCellStyle = (valueFunction: (data: StockForecast) => number) => params => {
         if (!params.data) {
             return null;
         }
 
-        const value = Number(params.data.pe_current) / Number(params.data.pe_avg);
+        const value = valueFunction(params.data);
         if (value < 0) {
             return {backgroundColor: "#ccc"};
         } else if (value <= 1 && value > 0) {
@@ -91,61 +91,6 @@ export const App = React.memo(() => {
         } else if (value > 1.5) {
             return {backgroundColor: "#f08e8d"};
         }
-        return null;
-    };
-
-    const psCellStyle = params => {
-        if (!params.data) {
-            return null;
-        }
-
-        const value = Number(params.data.ps_current) / Number(params.data.ps_avg);
-        if (value < 0) {
-            return {backgroundColor: "#ccc"};
-        } else if (value <= 1 && value > 0) {
-            return {backgroundColor: "#a6e194"};
-        } else if (value > 1 && value <= 1.5) {
-            return {backgroundColor: "#f3c08b"};
-        } else if (value > 1.5) {
-            return {backgroundColor: "#f08e8d"};
-        }
-        return null;
-    };
-
-    const pbCellStyle = params => {
-        if (!params.data) {
-            return null;
-        }
-
-        const value = Number(params.data.pb_current) / Number(params.data.pb_avg);
-        if (value < 0) {
-            return {backgroundColor: "#ccc"};
-        } else if (value <= 1 && value > 0) {
-            return {backgroundColor: "#a6e194"};
-        } else if (value > 1 && value <= 1.5) {
-            return {backgroundColor: "#f3c08b"};
-        } else if (value > 1.5) {
-            return {backgroundColor: "#f08e8d"};
-        }
-        return null;
-    };
-
-    const pocfCellStyle = params => {
-        if (!params.data) {
-            return null;
-        }
-
-        const value = Number(params.data.pocf_current) / Number(params.data.pocf_avg);
-        if (value < 0) {
-            return {backgroundColor: "#ccc"};
-        } else if (value <= 1 && value > 0) {
-            return {backgroundColor: "#a6e194"};
-        } else if (value > 1 && value <= 1.5) {
-            return {backgroundColor: "#f3c08b"};
-        } else if (value > 1.5) {
-            return {backgroundColor: "#f08e8d"};
-        }
-        return null;
     };
 
     return (
@@ -175,7 +120,7 @@ export const App = React.memo(() => {
                             type: "centerAligned",
                             children: [
                                 {field: "eps_ttm", headerName: "每股盈利", type: "rightAligned", width: 100},
-                                {field: "pe_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: peCellStyle},
+                                {field: "pe_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: ratioCellStyle(data => Number(data.pe_current) / Number(data.pe_avg))},
                                 {field: "pe_high", headerName: "極值", type: "rightAligned", width: 100},
                                 {field: "pe_avg", headerName: "均值", type: "rightAligned", width: 100},
                                 {field: "pe_low", headerName: "殘值", type: "rightAligned", width: 100},
@@ -184,7 +129,7 @@ export const App = React.memo(() => {
                         {
                             headerName: "P/E 股價預測",
                             children: [
-                                {field: "price", headerName: "現值", type: "rightAligned", width: 100, cellStyle: peCellStyle},
+                                {field: "price", headerName: "現值", type: "rightAligned", width: 100, cellStyle: ratioCellStyle(data => Number(data.price) / Number(data.pe_avg_forecast))},
                                 {field: "pe_high_forecast", headerName: "極值", type: "rightAligned", width: 120},
                                 {field: "pe_avg_forecast", headerName: "均值", type: "rightAligned", width: 120},
                                 {field: "pe_low_forecast", headerName: "殘值", type: "rightAligned", width: 120},
@@ -196,7 +141,7 @@ export const App = React.memo(() => {
                             type: "centerAligned",
                             children: [
                                 {field: "sps_ttm", headerName: "每股營收", type: "rightAligned", width: 100},
-                                {field: "ps_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: psCellStyle},
+                                {field: "ps_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: ratioCellStyle(data => Number(data.ps_current) / Number(data.ps_avg))},
                                 {field: "ps_high", headerName: "極值", type: "rightAligned", width: 100},
                                 {field: "ps_avg", headerName: "均值", type: "rightAligned", width: 100},
                                 {field: "ps_low", headerName: "殘值", type: "rightAligned", width: 100},
@@ -205,7 +150,7 @@ export const App = React.memo(() => {
                         {
                             headerName: "P/S 股價預測",
                             children: [
-                                {field: "price", headerName: "現值", type: "rightAligned", width: 100, cellStyle: psCellStyle},
+                                {field: "price", headerName: "現值", type: "rightAligned", width: 100, cellStyle: ratioCellStyle(data => Number(data.price) / Number(data.ps_avg_forecast))},
                                 {field: "ps_high_forecast", headerName: "極值", type: "rightAligned", width: 120},
                                 {field: "ps_avg_forecast", headerName: "均值", type: "rightAligned", width: 120},
                                 {field: "ps_low_forecast", headerName: "殘值", type: "rightAligned", width: 120},
@@ -217,7 +162,7 @@ export const App = React.memo(() => {
                             type: "centerAligned",
                             children: [
                                 {field: "nav_ttm", headerName: "每股淨值", type: "rightAligned", width: 100},
-                                {field: "pb_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: pbCellStyle},
+                                {field: "pb_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: ratioCellStyle(data => Number(data.pb_current) / Number(data.pb_avg))},
                                 {field: "pb_high", headerName: "極值", type: "rightAligned", width: 100},
                                 {field: "pb_avg", headerName: "均值", type: "rightAligned", width: 100},
                                 {field: "pb_low", headerName: "殘值", type: "rightAligned", width: 100},
@@ -226,7 +171,7 @@ export const App = React.memo(() => {
                         {
                             headerName: "P/B 股價預測",
                             children: [
-                                {field: "price", headerName: "現值", type: "rightAligned", width: 100, cellStyle: pbCellStyle},
+                                {field: "price", headerName: "現值", type: "rightAligned", width: 100, cellStyle: ratioCellStyle(data => Number(data.price) / Number(data.pb_avg_forecast))},
                                 {field: "pb_high_forecast", headerName: "極值", type: "rightAligned", width: 120},
                                 {field: "pb_avg_forecast", headerName: "均值", type: "rightAligned", width: 120},
                                 {field: "pb_low_forecast", headerName: "殘值", type: "rightAligned", width: 120},
@@ -238,7 +183,7 @@ export const App = React.memo(() => {
                             type: "centerAligned",
                             children: [
                                 {field: "ocf_ttm", headerName: "每股營運現金流", type: "rightAligned", width: 130},
-                                {field: "pocf_current", headerName: "現值", type: "rightAligned", width: 130, cellStyle: pocfCellStyle},
+                                {field: "pocf_current", headerName: "現值", type: "rightAligned", width: 130, cellStyle: ratioCellStyle(data => Number(data.pocf_current) / Number(data.pocf_avg))},
                                 {field: "pocf_high", headerName: "極值", type: "rightAligned", width: 130},
                                 {field: "pocf_avg", headerName: "均值", type: "rightAligned", width: 130},
                                 {field: "pocf_low", headerName: "殘值", type: "rightAligned", width: 130},
@@ -247,7 +192,7 @@ export const App = React.memo(() => {
                         {
                             headerName: "P/OCF 股價預測",
                             children: [
-                                {field: "price", headerName: "現值", type: "rightAligned", width: 100, cellStyle: pocfCellStyle},
+                                {field: "price", headerName: "現值", type: "rightAligned", width: 100, cellStyle: ratioCellStyle(data => Number(data.price) / Number(data.pocf_avg_forecast))},
                                 {field: "pocf_high_forecast", headerName: "極值", type: "rightAligned", width: 140},
                                 {field: "pocf_avg_forecast", headerName: "均值", type: "rightAligned", width: 140},
                                 {field: "pocf_low_forecast", headerName: "殘值", type: "rightAligned", width: 140},

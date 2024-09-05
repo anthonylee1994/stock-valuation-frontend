@@ -88,12 +88,12 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
         }
     }, [fetchData, fetchInfo, item?.symbol]);
 
-    const peCellStyle = params => {
+    const ratioCellStyle = (valueFunction: (data: StockSummary) => number) => params => {
         if (!params.data) {
             return null;
         }
 
-        const value = Number(params.data.pe_current) / Number(params.data.pe_avg);
+        const value = valueFunction(params.data);
         if (value < 0) {
             return {backgroundColor: "#ccc"};
         } else if (value <= 1 && value > 0) {
@@ -103,61 +103,6 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
         } else if (value > 1.5) {
             return {backgroundColor: "#f08e8d"};
         }
-        return null;
-    };
-
-    const psCellStyle = params => {
-        if (!params.data) {
-            return null;
-        }
-
-        const value = Number(params.data.ps_current) / Number(params.data.ps_avg);
-        if (value < 0) {
-            return {backgroundColor: "#ccc"};
-        } else if (value <= 1 && value > 0) {
-            return {backgroundColor: "#a6e194"};
-        } else if (value > 1 && value <= 1.5) {
-            return {backgroundColor: "#f3c08b"};
-        } else if (value > 1.5) {
-            return {backgroundColor: "#f08e8d"};
-        }
-        return null;
-    };
-
-    const pbCellStyle = params => {
-        if (!params.data) {
-            return null;
-        }
-
-        const value = Number(params.data.pb_current) / Number(params.data.pb_avg);
-        if (value < 0) {
-            return {backgroundColor: "#ccc"};
-        } else if (value <= 1 && value > 0) {
-            return {backgroundColor: "#a6e194"};
-        } else if (value > 1 && value <= 1.5) {
-            return {backgroundColor: "#f3c08b"};
-        } else if (value > 1.5) {
-            return {backgroundColor: "#f08e8d"};
-        }
-        return null;
-    };
-
-    const pocfCellStyle = params => {
-        if (!params.data) {
-            return null;
-        }
-
-        const value = Number(params.data.pocf_current) / Number(params.data.pocf_avg);
-        if (value < 0) {
-            return {backgroundColor: "#ccc"};
-        } else if (value <= 1 && value > 0) {
-            return {backgroundColor: "#a6e194"};
-        } else if (value > 1 && value <= 1.5) {
-            return {backgroundColor: "#f3c08b"};
-        } else if (value > 1.5) {
-            return {backgroundColor: "#f08e8d"};
-        }
-        return null;
     };
 
     return (
@@ -196,7 +141,13 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                             {
                                 headerName: "P/E",
                                 children: [
-                                    {field: "pe_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: peCellStyle},
+                                    {
+                                        field: "pe_current",
+                                        headerName: "現值",
+                                        type: "rightAligned",
+                                        width: 100,
+                                        cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pe_current) / Number(data.pe_avg)),
+                                    },
                                     {field: "pe_high", headerName: "極值", type: "rightAligned", width: 100},
                                     {field: "pe_avg", headerName: "均值", type: "rightAligned", width: 100},
                                     {field: "pe_low", headerName: "殘值", type: "rightAligned", width: 100},
@@ -205,7 +156,13 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                             {
                                 headerName: "P/S",
                                 children: [
-                                    {field: "ps_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: psCellStyle},
+                                    {
+                                        field: "ps_current",
+                                        headerName: "現值",
+                                        type: "rightAligned",
+                                        width: 100,
+                                        cellStyle: ratioCellStyle((data: StockSummary) => Number(data.ps_current) / Number(data.ps_avg)),
+                                    },
                                     {field: "ps_high", headerName: "極值", type: "rightAligned", width: 100},
                                     {field: "ps_avg", headerName: "均值", type: "rightAligned", width: 100},
                                     {field: "ps_low", headerName: "殘值", type: "rightAligned", width: 100},
@@ -214,7 +171,13 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                             {
                                 headerName: "P/B",
                                 children: [
-                                    {field: "pb_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: pbCellStyle},
+                                    {
+                                        field: "pb_current",
+                                        headerName: "現值",
+                                        type: "rightAligned",
+                                        width: 100,
+                                        cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pb_current) / Number(data.pb_avg)),
+                                    },
                                     {field: "pb_high", headerName: "極值", type: "rightAligned", width: 100},
                                     {field: "pb_avg", headerName: "均值", type: "rightAligned", width: 100},
                                     {field: "pb_low", headerName: "殘值", type: "rightAligned", width: 100},
@@ -223,7 +186,13 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                             {
                                 headerName: "P/OCF",
                                 children: [
-                                    {field: "pocf_current", headerName: "現值", type: "rightAligned", width: 120, cellStyle: pocfCellStyle},
+                                    {
+                                        field: "pocf_current",
+                                        headerName: "現值",
+                                        type: "rightAligned",
+                                        width: 120,
+                                        cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pocf_current) / Number(data.pocf_avg)),
+                                    },
                                     {field: "pocf_high", headerName: "極值", type: "rightAligned", width: 120},
                                     {field: "pocf_avg", headerName: "均值", type: "rightAligned", width: 120},
                                     {field: "pocf_low", headerName: "殘值", type: "rightAligned", width: 120},
