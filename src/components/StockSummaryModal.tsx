@@ -24,15 +24,19 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                 max_close: "-",
                 avg_close: "-",
                 min_close: "-",
+                pe_current: item?.pe_current || "",
                 pe_high: item?.pe_high || "",
                 pe_avg: item?.pe_avg || "",
                 pe_low: item?.pe_low || "",
-                pb_high: item?.pb_high || "",
-                pb_avg: item?.pb_avg || "",
-                pb_low: item?.pb_low || "",
+                ps_current: item?.ps_current || "",
                 ps_high: item?.ps_high || "",
                 ps_avg: item?.ps_avg || "",
                 ps_low: item?.ps_low || "",
+                pb_current: item?.pb_current || "",
+                pb_high: item?.pb_high || "",
+                pb_avg: item?.pb_avg || "",
+                pb_low: item?.pb_low || "",
+                pocf_current: item?.pocf_current || "",
                 pocf_high: item?.pocf_high || "",
                 pocf_avg: item?.pocf_avg || "",
                 pocf_low: item?.pocf_low || "",
@@ -46,15 +50,19 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                 max_close: Number(item.max_close),
                 avg_close: Number(item.avg_close),
                 min_close: Number(item.min_close),
+                pe_current: "-",
                 pe_high: Number(item.pe_high),
                 pe_avg: Number(item.pe_avg),
                 pe_low: Number(item.pe_low),
-                pb_high: Number(item.pb_high),
-                pb_avg: Number(item.pb_avg),
-                pb_low: Number(item.pb_low),
+                ps_current: "-",
                 ps_high: Number(item.ps_high),
                 ps_avg: Number(item.ps_avg),
                 ps_low: Number(item.ps_low),
+                pb_current: "-",
+                pb_high: Number(item.pb_high),
+                pb_avg: Number(item.pb_avg),
+                pb_low: Number(item.pb_low),
+                pocf_current: "-",
                 pocf_high: Number(item.pocf_high),
                 pocf_avg: Number(item.pocf_avg),
                 pocf_low: Number(item.pocf_low),
@@ -71,6 +79,78 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
             fetchData();
         }
     }, [fetchData, item?.symbol]);
+
+    const peCellStyle = params => {
+        if (!params.data) {
+            return null;
+        }
+
+        const value = Number(params.data.pe_current) / Number(params.data.pe_avg);
+        if (value < 0) {
+            return {backgroundColor: "#ccc"};
+        } else if (value <= 1 && value > 0) {
+            return {backgroundColor: "#a6e194"};
+        } else if (value > 1 && value <= 1.5) {
+            return {backgroundColor: "#f3c08b"};
+        } else if (value > 1.5) {
+            return {backgroundColor: "#f08e8d"};
+        }
+        return null;
+    };
+
+    const psCellStyle = params => {
+        if (!params.data) {
+            return null;
+        }
+
+        const value = Number(params.data.ps_current) / Number(params.data.ps_avg);
+        if (value < 0) {
+            return {backgroundColor: "#ccc"};
+        } else if (value <= 1 && value > 0) {
+            return {backgroundColor: "#a6e194"};
+        } else if (value > 1 && value <= 1.5) {
+            return {backgroundColor: "#f3c08b"};
+        } else if (value > 1.5) {
+            return {backgroundColor: "#f08e8d"};
+        }
+        return null;
+    };
+
+    const pbCellStyle = params => {
+        if (!params.data) {
+            return null;
+        }
+
+        const value = Number(params.data.pb_current) / Number(params.data.pb_avg);
+        if (value < 0) {
+            return {backgroundColor: "#ccc"};
+        } else if (value <= 1 && value > 0) {
+            return {backgroundColor: "#a6e194"};
+        } else if (value > 1 && value <= 1.5) {
+            return {backgroundColor: "#f3c08b"};
+        } else if (value > 1.5) {
+            return {backgroundColor: "#f08e8d"};
+        }
+        return null;
+    };
+
+    const pocfCellStyle = params => {
+        if (!params.data) {
+            return null;
+        }
+
+        const value = Number(params.data.pocf_current) / Number(params.data.pocf_avg);
+        if (value < 0) {
+            return {backgroundColor: "#ccc"};
+        } else if (value <= 1 && value > 0) {
+            return {backgroundColor: "#a6e194"};
+        } else if (value > 1 && value <= 1.5) {
+            return {backgroundColor: "#f3c08b"};
+        } else if (value > 1.5) {
+            return {backgroundColor: "#f08e8d"};
+        }
+        return null;
+    };
 
     return (
         <Dialog fullWidth fullScreen={isMobile} maxWidth="xl" open={Boolean(item)} onClose={onClose}>
@@ -107,6 +187,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                             {
                                 headerName: "P/E",
                                 children: [
+                                    {field: "pe_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: peCellStyle},
                                     {field: "pe_high", headerName: "極值", type: "rightAligned", width: 100},
                                     {field: "pe_avg", headerName: "均值", type: "rightAligned", width: 100},
                                     {field: "pe_low", headerName: "殘值", type: "rightAligned", width: 100},
@@ -115,6 +196,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                             {
                                 headerName: "P/S",
                                 children: [
+                                    {field: "ps_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: psCellStyle},
                                     {field: "ps_high", headerName: "極值", type: "rightAligned", width: 100},
                                     {field: "ps_avg", headerName: "均值", type: "rightAligned", width: 100},
                                     {field: "ps_low", headerName: "殘值", type: "rightAligned", width: 100},
@@ -123,6 +205,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                             {
                                 headerName: "P/B",
                                 children: [
+                                    {field: "pb_current", headerName: "現值", type: "rightAligned", width: 100, cellStyle: pbCellStyle},
                                     {field: "pb_high", headerName: "極值", type: "rightAligned", width: 100},
                                     {field: "pb_avg", headerName: "均值", type: "rightAligned", width: 100},
                                     {field: "pb_low", headerName: "殘值", type: "rightAligned", width: 100},
@@ -131,6 +214,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                             {
                                 headerName: "P/OCF",
                                 children: [
+                                    {field: "pocf_current", headerName: "現值", type: "rightAligned", width: 120, cellStyle: pocfCellStyle},
                                     {field: "pocf_high", headerName: "極值", type: "rightAligned", width: 120},
                                     {field: "pocf_avg", headerName: "均值", type: "rightAligned", width: 120},
                                     {field: "pocf_low", headerName: "殘值", type: "rightAligned", width: 120},
