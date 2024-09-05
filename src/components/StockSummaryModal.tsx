@@ -82,7 +82,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                 ocf: Number(item.ocf),
             })),
         ]);
-    }, [item?.symbol]);
+    }, [item]);
 
     React.useEffect(() => {
         if (item?.symbol) {
