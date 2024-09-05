@@ -5,6 +5,7 @@ import {StockSummary} from "../types/StockSummary";
 import {AgGridReact} from "ag-grid-react";
 import {StockForecast} from "../types/StockForecast";
 import CloseIcon from "@mui/icons-material/Close";
+import {TradingViewWidget} from "./TradingViewWidget";
 
 interface Props {
     item: StockForecast | null;
@@ -138,6 +139,11 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                         ]}
                     />
                 </div>
+                {item && (
+                    <div style={{height: 400, marginTop: 10}}>
+                        <TradingViewWidget symbol={item.symbol} />
+                    </div>
+                )}
             </DialogContent>
         </Dialog>
     );
