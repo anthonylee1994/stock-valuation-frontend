@@ -6,6 +6,7 @@ import {AgGridReact} from "ag-grid-react";
 import {StockForecast} from "../types/StockForecast";
 import CloseIcon from "@mui/icons-material/Close";
 import {TradingViewWidget} from "./TradingViewWidget";
+import {StockInfo} from "../types/StockInfo";
 
 interface Props {
     item: StockForecast | null;
@@ -14,7 +15,13 @@ interface Props {
 
 export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
     const isMobile = useMediaQuery("(max-width: 600px)");
+    const [stockInfo, setStockInfo] = React.useState<StockInfo | null>(null);
     const [stockSummaries, setStockSummaries] = React.useState<StockSummary[]>([]);
+
+    const fetchInfo = React.useCallback(async () => {
+        const response = await apiClient.get(`/stock_info/${item?.symbol}`);
+        setStockInfo(response.data);
+    }, [item?.symbol]);
 
     const fetchData = React.useCallback(async () => {
         const response = await apiClient.get(`/stock_summary/${item?.symbol}`);
@@ -77,8 +84,9 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
     React.useEffect(() => {
         if (item?.symbol) {
             fetchData();
+            fetchInfo();
         }
-    }, [fetchData, item?.symbol]);
+    }, [fetchData, fetchInfo, item?.symbol]);
 
     const peCellStyle = params => {
         if (!params.data) {
@@ -155,7 +163,8 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
     return (
         <Dialog fullWidth fullScreen={isMobile} maxWidth="xl" open={Boolean(item)} onClose={onClose}>
             <DialogTitle sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-                {item?.symbol}{" "}
+                {item?.symbol}
+                {stockInfo ? `: ${stockInfo.company_name}` : undefined}
                 <IconButton edge="start" color="inherit" onClick={onClose} aria-label="close">
                     <CloseIcon />
                 </IconButton>
