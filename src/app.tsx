@@ -88,9 +88,9 @@ export const App = React.memo(() => {
         () => [
             {field: "symbol", pinned: "left", headerName: "代碼", filter: true, width: 100},
             {field: "price", headerName: "股價", type: "rightAligned", width: 100},
-            {field: "volume", headerName: "成交量", type: "rightAligned", width: 150},
-            {field: "market_cap", headerName: "市值", type: "rightAligned", width: 150},
-            {field: "roe_ttm", headerName: "ROE", type: "rightAligned", width: 100},
+            {field: "volume", headerName: "成交量", type: "rightAligned", filter: "agNumberColumnFilter", filterParams: {filterOptions: ["greaterThan"]}, width: 150},
+            {field: "market_cap", headerName: "市值", type: "rightAligned", filter: "agNumberColumnFilter", filterParams: {filterOptions: ["greaterThan"]}, width: 150},
+            {field: "roe_ttm", headerName: "ROE", type: "rightAligned", filter: "agNumberColumnFilter", filterParams: {filterOptions: ["greaterThan"]}, width: 100},
 
             {field: "pe_forecast_discount", headerName: "P/E 股價折現", type: "rightAligned", cellStyle: ratioCellStyle(), width: 120},
             {field: "ps_forecast_discount", headerName: "P/S 股價折現", type: "rightAligned", cellStyle: ratioCellStyle(), width: 120},
