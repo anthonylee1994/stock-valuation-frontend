@@ -10,6 +10,7 @@ export interface StockSummary {
     sps: string;
     nav: string;
     ocf: string;
+    eps_growth: string;
 
     pe_current: string;
     pe_high: string;

@@ -26,7 +26,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
 
     const fetchData = React.useCallback(async () => {
         const response = await apiClient.get(`/stock_summary/${item?.symbol}`);
-        setStockSummaries([
+        let stockSummaries = [
             {
                 year: "最新預測",
                 max_close: "-",
@@ -81,7 +81,14 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                 nav: Number(item.nav),
                 ocf: Number(item.ocf),
             })),
-        ]);
+        ];
+
+        stockSummaries = stockSummaries.map((item, index) => ({
+            ...item,
+            eps_growth: index === stockSummaries.length - 1 ? "-" : `${(((item.eps - stockSummaries[index + 1].eps) / stockSummaries[index + 1].eps) * 100).toFixed(2)}%`,
+        }));
+
+        setStockSummaries(stockSummaries);
     }, [item]);
 
     React.useEffect(() => {
@@ -130,6 +137,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                                 headerName: "關鍵指標",
                                 children: [
                                     {field: "eps", headerName: "每股盈利", type: "rightAligned", width: 100},
+                                    {field: "eps_growth", headerName: "盈利增長率", type: "rightAligned", width: 110},
                                     {field: "sps", headerName: "每股營收", type: "rightAligned", width: 100},
                                     {field: "nav", headerName: "每股淨值", type: "rightAligned", width: 100},
                                     {field: "ocf", headerName: "每股營運現金流", type: "rightAligned", width: 150},
