@@ -7,6 +7,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import {findGrowthRateByPE, findPEByGrowthRate} from "./utils/growthRateToPE";
 import {ColDef} from "ag-grid-community";
+import millify from "millify";
 
 export const App = React.memo(() => {
     const [forecasts, setForecasts] = React.useState<StockForecast[]>([]);
@@ -97,7 +98,8 @@ export const App = React.memo(() => {
                 type: "rightAligned",
                 filter: "agNumberColumnFilter",
                 filterParams: {filterOptions: ["greaterThan"]},
-                width: 150,
+                valueFormatter: params => millify(params.value),
+                width: 100,
             },
             {
                 field: "market_cap",
@@ -105,7 +107,8 @@ export const App = React.memo(() => {
                 type: "rightAligned",
                 filter: "agNumberColumnFilter",
                 filterParams: {filterOptions: ["greaterThan"]},
-                width: 150,
+                valueFormatter: params => millify(params.value),
+                width: 100,
             },
             {
                 field: "roe_ttm",
