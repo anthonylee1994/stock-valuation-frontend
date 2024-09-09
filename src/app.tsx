@@ -22,6 +22,7 @@ export const App = React.memo(() => {
                 market_cap: Number(item.market_cap),
                 roe_ttm: Number(item.roe_ttm),
                 eps_ttm: Number(item.eps_ttm),
+                net_profit_margin_ttm: Number((Number(item.eps_ttm) / Number(item.sps_ttm)).toFixed(2)),
                 pe_high: Number(item.pe_high),
                 pe_avg: Number(item.pe_avg),
                 pe_low: Number(item.pe_low),
@@ -91,6 +92,7 @@ export const App = React.memo(() => {
             {field: "volume", headerName: "成交量", type: "rightAligned", filter: "agNumberColumnFilter", filterParams: {filterOptions: ["greaterThan"]}, width: 150},
             {field: "market_cap", headerName: "市值", type: "rightAligned", filter: "agNumberColumnFilter", filterParams: {filterOptions: ["greaterThan"]}, width: 150},
             {field: "roe_ttm", headerName: "ROE", type: "rightAligned", filter: "agNumberColumnFilter", filterParams: {filterOptions: ["greaterThan"]}, width: 100},
+            {field: "net_profit_margin_ttm", headerName: "純利率", type: "rightAligned", filter: "agNumberColumnFilter", filterParams: {filterOptions: ["greaterThan"]}, width: 100},
 
             {field: "pe_forecast_discount", headerName: "P/E 股價折現", type: "rightAligned", cellStyle: ratioCellStyle(), width: 120},
             {field: "ps_forecast_discount", headerName: "P/S 股價折現", type: "rightAligned", cellStyle: ratioCellStyle(), width: 120},

@@ -10,6 +10,7 @@ export interface StockForecast {
     sps_ttm: string;
     nav_ttm: string;
     ocf_ttm: string;
+    net_profit_margin_ttm: string;
 
     pe_high: string;
     pe_avg: string;

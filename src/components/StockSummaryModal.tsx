@@ -49,6 +49,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                 pocf_avg: item?.pocf_avg || "",
                 pocf_low: item?.pocf_low || "",
                 roe: item?.roe_ttm || "",
+                net_profit_margin: item ? (Number(item.eps_ttm) / Number(item.sps_ttm)).toFixed(2) : "",
                 eps: item?.eps_ttm || "",
                 sps: item?.sps_ttm || "",
                 nav: item?.nav_ttm || "",
@@ -80,6 +81,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                 sps: Number(item.sps),
                 nav: Number(item.nav),
                 ocf: Number(item.ocf),
+                net_profit_margin: (Number(item.eps) / Number(item.sps)).toFixed(2),
             })),
         ];
 
@@ -142,6 +144,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                                     {field: "nav", headerName: "每股淨值", type: "rightAligned", width: 100},
                                     {field: "ocf", headerName: "每股營運現金流", type: "rightAligned", width: 150},
                                     {field: "roe", headerName: "ROE", type: "rightAligned", width: 100},
+                                    {field: "net_profit_margin", headerName: "純利率", type: "rightAligned", width: 100},
                                 ],
                             },
                             {

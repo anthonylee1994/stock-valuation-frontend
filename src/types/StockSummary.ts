@@ -11,6 +11,7 @@ export interface StockSummary {
     nav: string;
     ocf: string;
     eps_growth: string;
+    net_profit_margin: string;
 
     pe_current: string;
     pe_high: string;
