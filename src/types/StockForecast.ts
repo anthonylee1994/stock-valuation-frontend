@@ -11,6 +11,7 @@ export interface StockForecast {
     nav_ttm: string;
     ocf_ttm: string;
     net_profit_margin_ttm: string;
+    eps_growth: string;
 
     pe_high: string;
     pe_avg: string;
