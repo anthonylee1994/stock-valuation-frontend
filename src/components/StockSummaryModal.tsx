@@ -7,7 +7,7 @@ import {StockForecast} from "../types/StockForecast";
 import CloseIcon from "@mui/icons-material/Close";
 import {TradingViewWidget} from "./TradingViewWidget";
 import {StockInfo} from "../types/StockInfo";
-import {findGrowthRateByPE} from "../utils/growthRateToPE";
+import {findGrowthRateByPE, findPEByGrowthRate} from "../utils/growthRateToPE";
 
 interface Props {
     item: StockForecast | null;
@@ -33,29 +33,29 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                 max_close: "-",
                 avg_close: "-",
                 min_close: "-",
-                pe_current: `${item?.pe_current}` || "",
-                pe_high: item?.pe_high || "",
-                pe_avg: item?.pe_avg || "",
-                pe_low: item?.pe_low || "",
-                ps_current: `${item?.ps_current}` || "",
-                ps_high: item?.ps_high || "",
-                ps_avg: item?.ps_avg || "",
-                ps_low: item?.ps_low || "",
-                pb_current: `${item?.pb_current}` || "",
-                pb_high: item?.pb_high || "",
-                pb_avg: item?.pb_avg || "",
-                pb_low: item?.pb_low || "",
-                pocf_current: `${item?.pocf_current}` || "",
-                pocf_high: item?.pocf_high || "",
-                pocf_avg: item?.pocf_avg || "",
-                pocf_low: item?.pocf_low || "",
-                roe: item?.roe_ttm || "",
-                net_profit_margin: item?.net_profit_margin_ttm || "",
-                eps: item?.eps_ttm || "",
-                sps: item?.sps_ttm || "",
-                nav: item?.nav_ttm || "",
-                ocf: item?.ocf_ttm || "",
-                eps_growth: `${item?.eps_growth || 0}%`,
+                pe_current: item?.pe_current,
+                pe_high: item?.pe_high ?? "",
+                pe_avg: item?.pe_avg ?? "",
+                pe_low: item?.pe_low ?? "",
+                ps_current: item?.ps_current,
+                ps_high: item?.ps_high ?? "",
+                ps_avg: item?.ps_avg ?? "",
+                ps_low: item?.ps_low ?? "",
+                pb_current: item?.pb_current,
+                pb_high: item?.pb_high ?? "",
+                pb_avg: item?.pb_avg ?? "",
+                pb_low: item?.pb_low ?? "",
+                pocf_current: item?.pocf_current,
+                pocf_high: item?.pocf_high ?? "",
+                pocf_avg: item?.pocf_avg ?? "",
+                pocf_low: item?.pocf_low ?? "",
+                roe: item?.roe_ttm ?? "",
+                net_profit_margin: item?.net_profit_margin_ttm ?? "",
+                eps: item?.eps_ttm ?? "",
+                sps: item?.sps_ttm ?? "",
+                nav: item?.nav_ttm ?? "",
+                ocf: item?.ocf_ttm ?? "",
+                eps_growth: item?.eps_growth ?? "",
             },
             ...response.data.map((item: StockSummary) => ({
                 year: item.year,
@@ -84,7 +84,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                 nav: Number(item.nav),
                 ocf: Number(item.ocf),
                 net_profit_margin: Number(item.net_profit_margin),
-                eps_growth: item.eps_growth ? `${item.eps_growth}%` : "",
+                eps_growth: Number(item.eps_growth),
             })),
         ];
 
@@ -137,7 +137,16 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                                 headerName: "關鍵指標",
                                 children: [
                                     {field: "eps", headerName: "每股盈利", type: "rightAligned", width: 100},
-                                    {field: "eps_growth", headerName: "盈利增長率", type: "rightAligned", width: 110},
+                                    {
+                                        field: "eps_growth",
+                                        headerName: "盈利增長率",
+                                        type: "rightAligned",
+                                        width: 110,
+                                        valueFormatter: params => `${Number(params.value).toFixed(2)}%`,
+                                        tooltipValueGetter: params => {
+                                            return `合理 P/E: ${findPEByGrowthRate(params.value)}`;
+                                        },
+                                    },
                                     {field: "sps", headerName: "每股營收", type: "rightAligned", width: 100},
                                     {field: "nav", headerName: "每股淨值", type: "rightAligned", width: 100},
                                     {field: "ocf", headerName: "每股營運現金流", type: "rightAligned", width: 150},
@@ -175,6 +184,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                                         width: 100,
                                         cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pe_current) / Number(data.pe_avg)),
                                         tooltipValueGetter: growthRateTooltipValueGetter,
+                                        valueFormatter: params => (params.value === "-" ? "-" : Number(params.value).toFixed(2)),
                                     },
                                     {
                                         field: "pe_high",
@@ -208,6 +218,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                                         type: "rightAligned",
                                         width: 100,
                                         cellStyle: ratioCellStyle((data: StockSummary) => Number(data.ps_current) / Number(data.ps_avg)),
+                                        valueFormatter: params => (params.value === "-" ? "-" : Number(params.value).toFixed(2)),
                                     },
                                     {field: "ps_high", headerName: "極值", type: "rightAligned", width: 100},
                                     {field: "ps_avg", headerName: "均值", type: "rightAligned", width: 100},
@@ -223,6 +234,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                                         type: "rightAligned",
                                         width: 100,
                                         cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pb_current) / Number(data.pb_avg)),
+                                        valueFormatter: params => (params.value === "-" ? "-" : Number(params.value).toFixed(2)),
                                     },
                                     {field: "pb_high", headerName: "極值", type: "rightAligned", width: 100},
                                     {field: "pb_avg", headerName: "均值", type: "rightAligned", width: 100},
@@ -238,6 +250,7 @@ export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
                                         type: "rightAligned",
                                         width: 120,
                                         cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pocf_current) / Number(data.pocf_avg)),
+                                        valueFormatter: params => (params.value === "-" ? "-" : Number(params.value).toFixed(2)),
                                     },
                                     {field: "pocf_high", headerName: "極值", type: "rightAligned", width: 120},
                                     {field: "pocf_avg", headerName: "均值", type: "rightAligned", width: 120},

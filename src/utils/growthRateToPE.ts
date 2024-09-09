@@ -10,8 +10,8 @@ export const findGrowthRateByPE = (pe: number) => {
 };
 
 export const findPEByGrowthRate = (growthRate: number) => {
-    if (growthRate <= 0) {
-        return 0;
+    if (growthRate === 0) {
+        return 10;
     }
 
     return Number((Math.pow(1 + growthRate / 100, 10) - 1) / (growthRate / 100)).toFixed(2);
