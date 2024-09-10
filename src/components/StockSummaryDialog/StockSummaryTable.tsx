@@ -2,7 +2,7 @@ import React from "react";
 import {AgGridReact} from "ag-grid-react";
 import {StockSummary} from "../../types/StockSummary";
 import {findGrowthRateByPE, findPEByGrowthRate} from "../../utils/growthRateToPE";
-import {MetricsDialog} from "../MetricsDialog.tsx";
+import {MetricsDialog} from "./MetricsDialog.tsx";
 
 interface Props {
     stockSummaries: StockSummary[];
