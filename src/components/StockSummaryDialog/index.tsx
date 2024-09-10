@@ -13,7 +13,7 @@ interface Props {
     onClose: () => void;
 }
 
-export const StockSummaryModal = React.memo(({item, onClose}: Props) => {
+export const StockSummaryDialog = React.memo(({item, onClose}: Props) => {
     const isMobile = useMediaQuery("(max-width: 600px)");
     const [stockInfo, setStockInfo] = React.useState<StockInfo | null>(null);
     const [stockSummaries, setStockSummaries] = React.useState<StockSummary[]>([]);

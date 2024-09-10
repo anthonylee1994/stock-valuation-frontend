@@ -1,7 +1,7 @@
 import React from "react";
 import {apiClient} from "./utils/apiClient";
 import {StockForecast} from "./types/StockForecast";
-import {StockSummaryModal} from "./components/StockSummaryModal";
+import {StockSummaryDialog} from "./components/StockSummaryDialog";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import {StockForecastTable} from "./components/StockForecastTable";
@@ -76,7 +76,7 @@ export const App = React.memo(() => {
                     }
                 }}
             />
-            <StockSummaryModal item={selectedItem} onClose={() => setSelectedItem(null)} />
+            <StockSummaryDialog item={selectedItem} onClose={() => setSelectedItem(null)} />
         </React.Fragment>
     );
 });
