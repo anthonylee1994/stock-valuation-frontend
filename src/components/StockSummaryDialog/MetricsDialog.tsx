@@ -1,6 +1,6 @@
 import React from "react";
 import {Dialog, DialogContent, DialogTitle, IconButton} from "@mui/material";
-import {StockSummary} from "../types/StockSummary.ts";
+import {StockSummary} from "../../types/StockSummary.ts";
 import {AgCharts} from "ag-charts-react";
 import CloseIcon from "@mui/icons-material/Close";
 
