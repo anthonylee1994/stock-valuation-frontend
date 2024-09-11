@@ -91,6 +91,9 @@ export const PSRatioDialog = React.memo<Props>(({open, onClose, symbol, stockSum
                     options={{
                         plugins: {
                             zoom: {
+                                pan: {
+                                    enabled: true,
+                                },
                                 zoom: {
                                     wheel: {
                                         enabled: true,

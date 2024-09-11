@@ -91,6 +91,9 @@ export const POCFRatioDialog = React.memo<Props>(({open, onClose, symbol, stockS
                     options={{
                         plugins: {
                             zoom: {
+                                pan: {
+                                    enabled: true,
+                                },
                                 zoom: {
                                     wheel: {
                                         enabled: true,
