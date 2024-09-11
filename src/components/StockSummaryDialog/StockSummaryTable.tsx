@@ -3,14 +3,23 @@ import {AgGridReact} from "ag-grid-react";
 import {StockSummary} from "../../types/StockSummary";
 import {findGrowthRateByPE, findPEByGrowthRate} from "../../utils/growthRateToPE";
 import {MetricsDialog} from "./MetricsDialog.tsx";
+import {PERatioDialog} from "./PERatioDialog.tsx";
+import {PSRatioDialog} from "./PSRatioDialog.tsx";
+import {PBRatioDialog} from "./PBRatioDialog.tsx";
+import {POCFRatioDialog} from "./POCFRatioDialog.tsx";
 
 interface Props {
+    symbol: string;
     stockSummaries: StockSummary[];
 }
 
-export const StockSummaryTable = React.memo<Props>(({stockSummaries}) => {
+export const StockSummaryTable = React.memo<Props>(({symbol, stockSummaries}) => {
     const [chartTitle, setChartTitle] = React.useState<string>("");
     const [chartKey, setChartKey] = React.useState<string | null>(null);
+    const [peDialogOpen, setPeDialogOpen] = React.useState<boolean>(false);
+    const [psDialogOpen, setPsDialogOpen] = React.useState<boolean>(false);
+    const [pbDialogOpen, setPbDialogOpen] = React.useState<boolean>(false);
+    const [pocfDialogOpen, setPocfDialogOpen] = React.useState<boolean>(false);
 
     const ratioCellStyle = (valueFunction: (data: StockSummary) => number) => params => {
         if (!params.data) {
@@ -127,6 +136,7 @@ export const StockSummaryTable = React.memo<Props>(({stockSummaries}) => {
                                     cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pe_current) / Number(data.pe_avg)),
                                     tooltipValueGetter: growthRateTooltipValueGetter,
                                     valueFormatter: params => (params.value === "-" ? "-" : Number(params.value).toFixed(2)),
+                                    onCellClicked: () => setPeDialogOpen(true),
                                 },
                                 {
                                     field: "pe_high",
@@ -134,6 +144,7 @@ export const StockSummaryTable = React.memo<Props>(({stockSummaries}) => {
                                     type: "rightAligned",
                                     width: 100,
                                     tooltipValueGetter: growthRateTooltipValueGetter,
+                                    onCellClicked: () => setPeDialogOpen(true),
                                 },
                                 {
                                     field: "pe_avg",
@@ -141,6 +152,7 @@ export const StockSummaryTable = React.memo<Props>(({stockSummaries}) => {
                                     type: "rightAligned",
                                     width: 100,
                                     tooltipValueGetter: growthRateTooltipValueGetter,
+                                    onCellClicked: () => setPeDialogOpen(true),
                                 },
                                 {
                                     field: "pe_low",
@@ -148,6 +160,7 @@ export const StockSummaryTable = React.memo<Props>(({stockSummaries}) => {
                                     type: "rightAligned",
                                     width: 100,
                                     tooltipValueGetter: growthRateTooltipValueGetter,
+                                    onCellClicked: () => setPeDialogOpen(true),
                                 },
                             ],
                         },
@@ -161,10 +174,29 @@ export const StockSummaryTable = React.memo<Props>(({stockSummaries}) => {
                                     width: 100,
                                     cellStyle: ratioCellStyle((data: StockSummary) => Number(data.ps_current) / Number(data.ps_avg)),
                                     valueFormatter: params => (params.value === "-" ? "-" : Number(params.value).toFixed(2)),
+                                    onCellClicked: () => setPsDialogOpen(true),
                                 },
-                                {field: "ps_high", headerName: "極值", type: "rightAligned", width: 100},
-                                {field: "ps_avg", headerName: "均值", type: "rightAligned", width: 100},
-                                {field: "ps_low", headerName: "殘值", type: "rightAligned", width: 100},
+                                {
+                                    field: "ps_high",
+                                    headerName: "極值",
+                                    type: "rightAligned",
+                                    width: 100,
+                                    onCellClicked: () => setPsDialogOpen(true),
+                                },
+                                {
+                                    field: "ps_avg",
+                                    headerName: "均值",
+                                    type: "rightAligned",
+                                    width: 100,
+                                    onCellClicked: () => setPsDialogOpen(true),
+                                },
+                                {
+                                    field: "ps_low",
+                                    headerName: "殘值",
+                                    type: "rightAligned",
+                                    width: 100,
+                                    onCellClicked: () => setPsDialogOpen(true),
+                                },
                             ],
                         },
                         {
@@ -177,10 +209,29 @@ export const StockSummaryTable = React.memo<Props>(({stockSummaries}) => {
                                     width: 100,
                                     cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pb_current) / Number(data.pb_avg)),
                                     valueFormatter: params => (params.value === "-" ? "-" : Number(params.value).toFixed(2)),
+                                    onCellClicked: () => setPbDialogOpen(true),
                                 },
-                                {field: "pb_high", headerName: "極值", type: "rightAligned", width: 100},
-                                {field: "pb_avg", headerName: "均值", type: "rightAligned", width: 100},
-                                {field: "pb_low", headerName: "殘值", type: "rightAligned", width: 100},
+                                {
+                                    field: "pb_high",
+                                    headerName: "極值",
+                                    type: "rightAligned",
+                                    width: 100,
+                                    onCellClicked: () => setPbDialogOpen(true),
+                                },
+                                {
+                                    field: "pb_avg",
+                                    headerName: "均值",
+                                    type: "rightAligned",
+                                    width: 100,
+                                    onCellClicked: () => setPbDialogOpen(true),
+                                },
+                                {
+                                    field: "pb_low",
+                                    headerName: "殘值",
+                                    type: "rightAligned",
+                                    width: 100,
+                                    onCellClicked: () => setPbDialogOpen(true),
+                                },
                             ],
                         },
                         {
@@ -193,16 +244,39 @@ export const StockSummaryTable = React.memo<Props>(({stockSummaries}) => {
                                     width: 120,
                                     cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pocf_current) / Number(data.pocf_avg)),
                                     valueFormatter: params => (params.value === "-" ? "-" : Number(params.value).toFixed(2)),
+                                    onCellClicked: () => setPocfDialogOpen(true),
                                 },
-                                {field: "pocf_high", headerName: "極值", type: "rightAligned", width: 120},
-                                {field: "pocf_avg", headerName: "均值", type: "rightAligned", width: 120},
-                                {field: "pocf_low", headerName: "殘值", type: "rightAligned", width: 120},
+                                {
+                                    field: "pocf_high",
+                                    headerName: "極值",
+                                    type: "rightAligned",
+                                    width: 120,
+                                    onCellClicked: () => setPocfDialogOpen(true),
+                                },
+                                {
+                                    field: "pocf_avg",
+                                    headerName: "均值",
+                                    type: "rightAligned",
+                                    width: 120,
+                                    onCellClicked: () => setPocfDialogOpen(true),
+                                },
+                                {
+                                    field: "pocf_low",
+                                    headerName: "殘值",
+                                    type: "rightAligned",
+                                    width: 120,
+                                    onCellClicked: () => setPocfDialogOpen(true),
+                                },
                             ],
                         },
                     ]}
                 />
             </div>
             <MetricsDialog title={chartTitle} data={[...stockSummaries].reverse()} yKey={chartKey} onClose={() => setChartKey(null)} />
+            <PERatioDialog open={peDialogOpen} onClose={() => setPeDialogOpen(false)} stockSummaries={stockSummaries} symbol={symbol} />
+            <PSRatioDialog open={psDialogOpen} onClose={() => setPsDialogOpen(false)} stockSummaries={stockSummaries} symbol={symbol} />
+            <PBRatioDialog open={pbDialogOpen} onClose={() => setPbDialogOpen(false)} stockSummaries={stockSummaries} symbol={symbol} />
+            <POCFRatioDialog open={pocfDialogOpen} onClose={() => setPocfDialogOpen(false)} stockSummaries={stockSummaries} symbol={symbol} />
         </React.Fragment>
     );
 });

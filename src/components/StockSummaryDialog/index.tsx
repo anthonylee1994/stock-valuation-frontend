@@ -107,7 +107,7 @@ export const StockSummaryDialog = React.memo(({item, onClose}: Props) => {
                 </IconButton>
             </DialogTitle>
             <DialogContent>
-                <StockSummaryTable stockSummaries={stockSummaries} />
+                {item && <StockSummaryTable symbol={item.symbol} stockSummaries={stockSummaries} />}
                 {item && (
                     <div style={{height: 400, marginTop: 10}}>
                         <TradingViewWidget symbol={item.symbol} />
