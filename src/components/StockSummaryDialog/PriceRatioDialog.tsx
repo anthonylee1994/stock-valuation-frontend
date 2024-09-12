@@ -12,13 +12,13 @@ import CloseIcon from "@mui/icons-material/Close";
 Chart.register(...registerables, zoomPlugin);
 
 interface Props {
-    open: boolean;
+    open: "pe" | "pb" | "ps" | "pocf" | null;
     symbol: string;
     onClose: () => void;
     stockSummaries: StockSummary[];
 }
 
-export const PBRatioDialog = React.memo<Props>(({open, onClose, symbol, stockSummaries}) => {
+export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stockSummaries}) => {
     const [stockPrices, setStockPrices] = React.useState<StockPrice[]>([]);
 
     const fetchData = React.useCallback(async () => {
@@ -30,10 +30,40 @@ export const PBRatioDialog = React.memo<Props>(({open, onClose, symbol, stockSum
         fetchData();
     }, [fetchData, symbol]);
 
+    const name = React.useMemo(() => {
+        switch (open) {
+            case "pe":
+                return "P/E";
+            case "pb":
+                return "P/B";
+            case "ps":
+                return "P/S";
+            case "pocf":
+                return "P/OCF";
+            default:
+                return "";
+        }
+    }, [open]);
+
+    const base = React.useMemo(() => {
+        switch (open) {
+            case "pe":
+                return "eps";
+            case "pb":
+                return "nav";
+            case "ps":
+                return "sps";
+            case "pocf":
+                return "ocf";
+            default:
+                return "";
+        }
+    }, [open]);
+
     return (
-        <Dialog fullWidth maxWidth="lg" open={open} onClose={onClose}>
+        <Dialog fullWidth maxWidth="lg" open={Boolean(open)} onClose={onClose}>
             <DialogTitle sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-                P/B
+                {name}
                 <IconButton edge="start" color="inherit" onClick={onClose} aria-label="close">
                     <CloseIcon />
                 </IconButton>
@@ -51,36 +81,36 @@ export const PBRatioDialog = React.memo<Props>(({open, onClose, symbol, stockSum
                                 tension: 0.1,
                             },
                             {
-                                label: "P/B 極值",
+                                label: `${name} 極值`,
                                 data: stockPrices.map(item => {
                                     let summary = stockSummaries.find(summary => summary.year === String(new Date(item.date).getFullYear()));
                                     summary = summary ? summary : stockSummaries[0];
 
-                                    return Number(stockSummaries[0].pb_high) * Number(summary.nav);
+                                    return Number(stockSummaries[0][`${open}_high`]) * Number(summary[base]);
                                 }),
                                 fill: false,
                                 borderColor: "rgb(255, 99, 132)",
                                 tension: 0.1,
                             },
                             {
-                                label: "P/B 均值",
+                                label: `${name} 均值`,
                                 data: stockPrices.map(item => {
                                     let summary = stockSummaries.find(summary => summary.year === String(new Date(item.date).getFullYear()));
                                     summary = summary ? summary : stockSummaries[0];
 
-                                    return Number(stockSummaries[0].pb_avg) * Number(summary.nav);
+                                    return Number(stockSummaries[0][`${open}_avg`]) * Number(summary[base]);
                                 }),
                                 fill: false,
                                 borderColor: "rgb(255, 205, 86)",
                                 tension: 0.1,
                             },
                             {
-                                label: "P/B 殘值",
+                                label: `${name} 殘值`,
                                 data: stockPrices.map(item => {
                                     let summary = stockSummaries.find(summary => summary.year === String(new Date(item.date).getFullYear()));
                                     summary = summary ? summary : stockSummaries[0];
 
-                                    return Number(stockSummaries[0].pb_low) * Number(summary.nav);
+                                    return Number(stockSummaries[0][`${open}_low`]) * Number(summary[base]);
                                 }),
                                 fill: false,
                                 borderColor: "rgb(54, 162, 235)",

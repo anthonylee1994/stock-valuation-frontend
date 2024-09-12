@@ -3,10 +3,7 @@ import {AgGridReact} from "ag-grid-react";
 import {StockSummary} from "../../types/StockSummary";
 import {findGrowthRateByPE, findPEByGrowthRate} from "../../utils/growthRateToPE";
 import {MetricsDialog} from "./MetricsDialog.tsx";
-import {PERatioDialog} from "./PERatioDialog.tsx";
-import {PSRatioDialog} from "./PSRatioDialog.tsx";
-import {PBRatioDialog} from "./PBRatioDialog.tsx";
-import {POCFRatioDialog} from "./POCFRatioDialog.tsx";
+import {PriceRatioDialog} from "./PriceRatioDialog.tsx";
 
 interface Props {
     symbol: string;
@@ -16,10 +13,7 @@ interface Props {
 export const StockSummaryTable = React.memo<Props>(({symbol, stockSummaries}) => {
     const [chartTitle, setChartTitle] = React.useState<string>("");
     const [chartKey, setChartKey] = React.useState<string | null>(null);
-    const [peDialogOpen, setPeDialogOpen] = React.useState<boolean>(false);
-    const [psDialogOpen, setPsDialogOpen] = React.useState<boolean>(false);
-    const [pbDialogOpen, setPbDialogOpen] = React.useState<boolean>(false);
-    const [pocfDialogOpen, setPocfDialogOpen] = React.useState<boolean>(false);
+    const [priceRatioDialogOpen, setPriceRatioDialogOpen] = React.useState<"pe" | "ps" | "pb" | "pocf" | null>(null);
 
     const ratioCellStyle = (valueFunction: (data: StockSummary) => number) => params => {
         if (!params.data) {
@@ -136,7 +130,7 @@ export const StockSummaryTable = React.memo<Props>(({symbol, stockSummaries}) =>
                                     cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pe_current) / Number(data.pe_avg)),
                                     tooltipValueGetter: growthRateTooltipValueGetter,
                                     valueFormatter: params => (params.value === "-" ? "-" : Number(params.value).toFixed(2)),
-                                    onCellClicked: () => setPeDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("pe"),
                                 },
                                 {
                                     field: "pe_high",
@@ -144,7 +138,7 @@ export const StockSummaryTable = React.memo<Props>(({symbol, stockSummaries}) =>
                                     type: "rightAligned",
                                     width: 100,
                                     tooltipValueGetter: growthRateTooltipValueGetter,
-                                    onCellClicked: () => setPeDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("pe"),
                                 },
                                 {
                                     field: "pe_avg",
@@ -152,7 +146,7 @@ export const StockSummaryTable = React.memo<Props>(({symbol, stockSummaries}) =>
                                     type: "rightAligned",
                                     width: 100,
                                     tooltipValueGetter: growthRateTooltipValueGetter,
-                                    onCellClicked: () => setPeDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("pe"),
                                 },
                                 {
                                     field: "pe_low",
@@ -160,7 +154,7 @@ export const StockSummaryTable = React.memo<Props>(({symbol, stockSummaries}) =>
                                     type: "rightAligned",
                                     width: 100,
                                     tooltipValueGetter: growthRateTooltipValueGetter,
-                                    onCellClicked: () => setPeDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("pe"),
                                 },
                             ],
                         },
@@ -174,28 +168,28 @@ export const StockSummaryTable = React.memo<Props>(({symbol, stockSummaries}) =>
                                     width: 100,
                                     cellStyle: ratioCellStyle((data: StockSummary) => Number(data.ps_current) / Number(data.ps_avg)),
                                     valueFormatter: params => (params.value === "-" ? "-" : Number(params.value).toFixed(2)),
-                                    onCellClicked: () => setPsDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("ps"),
                                 },
                                 {
                                     field: "ps_high",
                                     headerName: "極值",
                                     type: "rightAligned",
                                     width: 100,
-                                    onCellClicked: () => setPsDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("ps"),
                                 },
                                 {
                                     field: "ps_avg",
                                     headerName: "均值",
                                     type: "rightAligned",
                                     width: 100,
-                                    onCellClicked: () => setPsDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("ps"),
                                 },
                                 {
                                     field: "ps_low",
                                     headerName: "殘值",
                                     type: "rightAligned",
                                     width: 100,
-                                    onCellClicked: () => setPsDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("ps"),
                                 },
                             ],
                         },
@@ -209,28 +203,28 @@ export const StockSummaryTable = React.memo<Props>(({symbol, stockSummaries}) =>
                                     width: 100,
                                     cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pb_current) / Number(data.pb_avg)),
                                     valueFormatter: params => (params.value === "-" ? "-" : Number(params.value).toFixed(2)),
-                                    onCellClicked: () => setPbDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("pb"),
                                 },
                                 {
                                     field: "pb_high",
                                     headerName: "極值",
                                     type: "rightAligned",
                                     width: 100,
-                                    onCellClicked: () => setPbDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("pb"),
                                 },
                                 {
                                     field: "pb_avg",
                                     headerName: "均值",
                                     type: "rightAligned",
                                     width: 100,
-                                    onCellClicked: () => setPbDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("pb"),
                                 },
                                 {
                                     field: "pb_low",
                                     headerName: "殘值",
                                     type: "rightAligned",
                                     width: 100,
-                                    onCellClicked: () => setPbDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("pb"),
                                 },
                             ],
                         },
@@ -244,28 +238,28 @@ export const StockSummaryTable = React.memo<Props>(({symbol, stockSummaries}) =>
                                     width: 120,
                                     cellStyle: ratioCellStyle((data: StockSummary) => Number(data.pocf_current) / Number(data.pocf_avg)),
                                     valueFormatter: params => (params.value === "-" ? "-" : Number(params.value).toFixed(2)),
-                                    onCellClicked: () => setPocfDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("pocf"),
                                 },
                                 {
                                     field: "pocf_high",
                                     headerName: "極值",
                                     type: "rightAligned",
                                     width: 120,
-                                    onCellClicked: () => setPocfDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("pocf"),
                                 },
                                 {
                                     field: "pocf_avg",
                                     headerName: "均值",
                                     type: "rightAligned",
                                     width: 120,
-                                    onCellClicked: () => setPocfDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("pocf"),
                                 },
                                 {
                                     field: "pocf_low",
                                     headerName: "殘值",
                                     type: "rightAligned",
                                     width: 120,
-                                    onCellClicked: () => setPocfDialogOpen(true),
+                                    onCellClicked: () => setPriceRatioDialogOpen("pocf"),
                                 },
                             ],
                         },
@@ -273,10 +267,7 @@ export const StockSummaryTable = React.memo<Props>(({symbol, stockSummaries}) =>
                 />
             </div>
             <MetricsDialog title={chartTitle} data={[...stockSummaries].reverse()} yKey={chartKey} onClose={() => setChartKey(null)} />
-            <PERatioDialog open={peDialogOpen} onClose={() => setPeDialogOpen(false)} stockSummaries={stockSummaries} symbol={symbol} />
-            <PSRatioDialog open={psDialogOpen} onClose={() => setPsDialogOpen(false)} stockSummaries={stockSummaries} symbol={symbol} />
-            <PBRatioDialog open={pbDialogOpen} onClose={() => setPbDialogOpen(false)} stockSummaries={stockSummaries} symbol={symbol} />
-            <POCFRatioDialog open={pocfDialogOpen} onClose={() => setPocfDialogOpen(false)} stockSummaries={stockSummaries} symbol={symbol} />
+            <PriceRatioDialog open={priceRatioDialogOpen} onClose={() => setPriceRatioDialogOpen(null)} stockSummaries={stockSummaries} symbol={symbol} />
         </React.Fragment>
     );
 });
