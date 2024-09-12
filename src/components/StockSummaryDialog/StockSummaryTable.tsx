@@ -32,7 +32,13 @@ export const StockSummaryTable = React.memo<Props>(({symbol, stockSummaries}) =>
         }
     };
 
-    const growthRateTooltipValueGetter = params => `代表增長率: ${findGrowthRateByPE(Number(params.value))}%`;
+    const growthRateTooltipValueGetter = params => {
+        if (params.value === "-") {
+            return null;
+        }
+
+        return `代表增長率: ${findGrowthRateByPE(Number(params.value))}%`;
+    };
 
     return (
         <React.Fragment>
