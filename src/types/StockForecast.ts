@@ -17,6 +17,7 @@ export interface StockForecast {
     pe_high: string;
     pe_avg: string;
     pe_low: string;
+    pe_std: string;
     pe_current: string;
     pe_high_forecast: string;
     pe_avg_forecast: string;
@@ -26,6 +27,7 @@ export interface StockForecast {
     ps_high: string;
     ps_avg: string;
     ps_low: string;
+    ps_std: string;
     ps_current: string;
     ps_high_forecast: string;
     ps_avg_forecast: string;
@@ -35,6 +37,7 @@ export interface StockForecast {
     pb_high: string;
     pb_avg: string;
     pb_low: string;
+    pb_std: string;
     pb_current: string;
     pb_high_forecast: string;
     pb_avg_forecast: string;
@@ -44,6 +47,7 @@ export interface StockForecast {
     pocf_high: string;
     pocf_avg: string;
     pocf_low: string;
+    pocf_std: string;
     pocf_current: string;
     pocf_high_forecast: string;
     pocf_avg_forecast: string;

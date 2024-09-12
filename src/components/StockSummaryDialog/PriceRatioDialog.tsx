@@ -93,6 +93,17 @@ export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stock
                                 tension: 0.1,
                             },
                             {
+                                label: `${name} 標準差+1`,
+                                data: stockPrices.map(item => {
+                                    let summary = stockSummaries.find(summary => summary.year === String(new Date(item.date).getFullYear()));
+                                    summary = summary ? summary : stockSummaries[0];
+
+                                    return (Number(stockSummaries[0][`${open}_avg`]) + Number(stockSummaries[0][`${open}_std`])) * Number(summary[base]);
+                                }),
+                                fill: false,
+                                borderColor: "rgb(255,120,41)",
+                            },
+                            {
                                 label: `${name} 均值`,
                                 data: stockPrices.map(item => {
                                     let summary = stockSummaries.find(summary => summary.year === String(new Date(item.date).getFullYear()));
@@ -103,6 +114,17 @@ export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stock
                                 fill: false,
                                 borderColor: "rgb(255, 205, 86)",
                                 tension: 0.1,
+                            },
+                            {
+                                label: `${name} 標準差-1`,
+                                data: stockPrices.map(item => {
+                                    let summary = stockSummaries.find(summary => summary.year === String(new Date(item.date).getFullYear()));
+                                    summary = summary ? summary : stockSummaries[0];
+
+                                    return (Number(stockSummaries[0][`${open}_avg`]) - Number(stockSummaries[0][`${open}_std`])) * Number(summary[base]);
+                                }),
+                                fill: false,
+                                borderColor: "rgb(104,211,68)",
                             },
                             {
                                 label: `${name} 殘值`,
