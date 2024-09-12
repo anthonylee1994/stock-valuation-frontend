@@ -60,6 +60,12 @@ export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stock
         }
     }, [open]);
 
+    const getSummary = (item: StockPrice) => {
+        const itemYear = new Date(item.date).getFullYear();
+        const currentYear = new Date().getFullYear();
+        return itemYear === currentYear ? stockSummaries[0] : stockSummaries.find(summary => summary.year === String(new Date(item.date).getFullYear()));
+    };
+
     return (
         <Dialog fullWidth maxWidth="lg" open={Boolean(open)} onClose={onClose}>
             <DialogTitle sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
@@ -83,8 +89,11 @@ export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stock
                             {
                                 label: `${name} 極值`,
                                 data: stockPrices.map(item => {
-                                    let summary = stockSummaries.find(summary => summary.year === String(new Date(item.date).getFullYear()));
-                                    summary = summary ? summary : stockSummaries[0];
+                                    const summary = getSummary(item);
+
+                                    if (!summary) {
+                                        return 0;
+                                    }
 
                                     return Number(stockSummaries[0][`${open}_high`]) * Number(summary[base]);
                                 }),
@@ -95,8 +104,11 @@ export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stock
                             {
                                 label: `${name} 標準差+1`,
                                 data: stockPrices.map(item => {
-                                    let summary = stockSummaries.find(summary => summary.year === String(new Date(item.date).getFullYear()));
-                                    summary = summary ? summary : stockSummaries[0];
+                                    const summary = getSummary(item);
+
+                                    if (!summary) {
+                                        return 0;
+                                    }
 
                                     return (Number(stockSummaries[0][`${open}_avg`]) + Number(stockSummaries[0][`${open}_std`])) * Number(summary[base]);
                                 }),
@@ -106,8 +118,11 @@ export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stock
                             {
                                 label: `${name} 均值`,
                                 data: stockPrices.map(item => {
-                                    let summary = stockSummaries.find(summary => summary.year === String(new Date(item.date).getFullYear()));
-                                    summary = summary ? summary : stockSummaries[0];
+                                    const summary = getSummary(item);
+
+                                    if (!summary) {
+                                        return 0;
+                                    }
 
                                     return Number(stockSummaries[0][`${open}_avg`]) * Number(summary[base]);
                                 }),
@@ -118,8 +133,11 @@ export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stock
                             {
                                 label: `${name} 標準差-1`,
                                 data: stockPrices.map(item => {
-                                    let summary = stockSummaries.find(summary => summary.year === String(new Date(item.date).getFullYear()));
-                                    summary = summary ? summary : stockSummaries[0];
+                                    const summary = getSummary(item);
+
+                                    if (!summary) {
+                                        return 0;
+                                    }
 
                                     return (Number(stockSummaries[0][`${open}_avg`]) - Number(stockSummaries[0][`${open}_std`])) * Number(summary[base]);
                                 }),
@@ -129,8 +147,11 @@ export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stock
                             {
                                 label: `${name} 殘值`,
                                 data: stockPrices.map(item => {
-                                    let summary = stockSummaries.find(summary => summary.year === String(new Date(item.date).getFullYear()));
-                                    summary = summary ? summary : stockSummaries[0];
+                                    const summary = getSummary(item);
+
+                                    if (!summary) {
+                                        return 0;
+                                    }
 
                                     return Number(stockSummaries[0][`${open}_low`]) * Number(summary[base]);
                                 }),
