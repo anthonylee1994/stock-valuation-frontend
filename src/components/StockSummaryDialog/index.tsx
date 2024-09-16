@@ -59,6 +59,7 @@ export const StockSummaryDialog = React.memo(({item, onClose}: Props) => {
                 nav: item?.nav_ttm ?? "",
                 ocf: item?.ocf_ttm ?? "",
                 eps_growth: item?.eps_growth ?? "",
+                sps_growth: item?.sps_growth ?? "",
             },
             ...response.data.map((item: StockSummary) => ({
                 year: item.year,
@@ -92,6 +93,7 @@ export const StockSummaryDialog = React.memo(({item, onClose}: Props) => {
                 ocf: Number(item.ocf),
                 net_profit_margin: Number(item.net_profit_margin),
                 eps_growth: Number(item.eps_growth),
+                sps_growth: Number(item.sps_growth),
             })),
         ];
 

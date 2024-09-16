@@ -73,13 +73,24 @@ export const StockForecastTable = React.memo<Props>(({stockForecasts, onRowClick
 
             {
                 field: "average_eps_growth",
-                headerName: "平均增長率",
+                headerName: "平均盈利增長率",
                 type: "rightAligned",
                 filter: "agNumberColumnFilter",
                 filterParams: {filterOptions: ["greaterThan"]},
                 valueFormatter: params => `${params.value}%`,
                 tooltipValueGetter: params => `合理 P/E: ${findPEByGrowthRate(Math.round(params.value))}`,
-                width: 130,
+                width: 150,
+            },
+
+            {
+                field: "average_sps_growth",
+                headerName: "平均營收增長率",
+                type: "rightAligned",
+                filter: "agNumberColumnFilter",
+                filterParams: {filterOptions: ["greaterThan"]},
+                valueFormatter: params => `${params.value}%`,
+                tooltipValueGetter: params => `合理 P/E: ${findPEByGrowthRate(Math.round(params.value))}`,
+                width: 150,
             },
 
             {

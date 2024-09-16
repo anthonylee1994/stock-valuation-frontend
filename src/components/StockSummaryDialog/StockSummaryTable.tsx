@@ -82,6 +82,16 @@ export const StockSummaryTable = React.memo<Props>(({symbol, stockSummaries}) =>
                                     },
                                 },
                                 {
+                                    field: "sps_growth",
+                                    headerName: "營收增長率",
+                                    type: "rightAligned",
+                                    width: 110,
+                                    valueFormatter: params => `${Number(params.value).toFixed(2)}%`,
+                                    tooltipValueGetter: params => {
+                                        return `合理 P/E: ${findPEByGrowthRate(params.value)}`;
+                                    },
+                                },
+                                {
                                     field: "nav",
                                     headerName: "每股淨值",
                                     type: "rightAligned",

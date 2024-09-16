@@ -23,6 +23,8 @@ export const App = React.memo(() => {
                 net_profit_margin_ttm: Number(item.net_profit_margin_ttm),
                 eps_growth: Number(item.eps_growth),
                 average_eps_growth: Number(item.average_eps_growth),
+                sps_growth: Number(item.sps_growth),
+                average_sps_growth: Number(item.average_sps_growth),
                 pe_high: Number(item.pe_high),
                 pe_avg: Number(item.pe_avg),
                 pe_low: Number(item.pe_low),
