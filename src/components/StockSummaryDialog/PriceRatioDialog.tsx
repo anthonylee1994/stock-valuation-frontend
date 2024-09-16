@@ -84,7 +84,6 @@ export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stock
                                 data: stockPrices.map(item => item.adjClose),
                                 fill: false,
                                 borderColor: "rgb(75, 192, 192)",
-                                tension: 0.1,
                             },
                             {
                                 label: `${name} 極值`,
@@ -99,7 +98,6 @@ export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stock
                                 }),
                                 fill: false,
                                 borderColor: "rgb(255, 99, 132)",
-                                tension: 0.1,
                             },
                             {
                                 label: `${name} 標準差+1`,
@@ -128,7 +126,6 @@ export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stock
                                 }),
                                 fill: false,
                                 borderColor: "rgb(255, 205, 86)",
-                                tension: 0.1,
                             },
                             {
                                 label: `${name} 標準差-1`,
@@ -157,7 +154,6 @@ export const PriceRatioDialog = React.memo<Props>(({open, onClose, symbol, stock
                                 }),
                                 fill: false,
                                 borderColor: "rgb(54, 162, 235)",
-                                tension: 0.1,
                             },
                         ],
                     }}
